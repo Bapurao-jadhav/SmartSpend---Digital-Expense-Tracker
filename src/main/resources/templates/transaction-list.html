@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>	
+	<title>SmartSpend - transaction list</title>
+	    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"/>
+</head>
+<body>
+<div class="container mt-4">
+
+    <h3>My Transactions</h3>
+
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Amount</th>
+                <th>Category</th>
+                <th>Type</th>
+                <th>Date</th>
+                <th>Note</th>
+                <th>Actions</th>
+                
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="tr : ${transactions}">
+                <td th:text="${tr.amount}"></td>
+                <td th:text="${tr.category.name}"></td>
+                <td th:text="${tr.category.type}"></td>
+                <td th:text="${tr.date}"></td>
+                <td th:text="${tr.note}"></td>
+                <td>
+					<form th:action="@{/transaction/update/{id}(id=${tr.trId})}" method="get">
+							<button type="submit" class="btn btn-danger">Update</button>
+					</form>
+					<a th:href="@{/transaction/delete/{id}(id=${tr.trId})}" 
+					   class="btn btn-danger btn-sm"
+					   onclick="return confirm('Are you sure you want to delete this transaction?')">
+					   Delete
+					</a>
+				</td>
+               
+            </tr>
+        </tbody>
+    </table>
+
+</div>
+</body>
+</html>
